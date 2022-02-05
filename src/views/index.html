@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Inicio</title>
+    <%- include("partials/head.html") %>
+
+</head>
+<body>
+    <%- include("partials/navigation.html") %>
+
+       
+        <div class="img-gallery-fullPhoto" id="fullImgBox">
+            <h2 id="TweetContent"></h2>
+            <h2 id="TweetDate" style="margin-top: 5em;"></h2>
+            <img src="" id="fullImg">
+            <span onclick="closeFullImg()" id="spanId">X</span>
+        </div>
+   
+
+    <div class="img-gallery">
+        <% i=0; %>
+        <%// if(cvsData[0]!="["){cvsData[0]="[";} %>
+        <%// if(cvsData[cvsData.length-1]!="["){cvsData[cvsData.length-1]="]";} %>
+        <%// for(y=0;y<3;y++){console.log(cvsData[y]);} %>
+        <% cvsData.forEach(element => { i++ %>
+            <% if(element.SavedFilename!=undefined&&element.SavedFilename.length>0){ %>
+            <img class="img-gallery" onclick="openFullImg(this)" id= <%= "img"+i %> src= <%= "/img/"+ element.SavedFilename %> class="animate__animated animate__bounceIn" >
+            <% ;}else{console.log(element);} %>
+        <%  }); %>
+    </div>
+    <script>
+        var fullImgBox = document.getElementById("fullImgBox");
+        var fullImg = document.getElementById("fullImg");
+
+        function openFullImg(src){
+            fullImgBox.style.display = "flex";
+            fullImg.src=src.src;
+
+            var id = src.id.replace ( /[^\d.]/g, '' );
+            document.getElementById("spanId").value = id.toString();
+            var data=[];
+            let singular;
+            '<% cvsData[0]=""; %>'
+            '<% cvsData[cvsData.length-1]=""; %>'
+            '<%  cvsData.forEach(element => { %>'
+            data.push('<%- JSON.stringify(element); %>');
+            '<% }); %>'
+            //var data = '<%- JSON.stringify(cvsData)%>';
+            //JSON.parse()
+            //data = JSON.parse(data);
+            data = JSON.parse(data[id]);
+
+            document.getElementById("TweetContent").innerHTML = data.TweetContent;
+            document.getElementById("TweetDate").innerHTML = "Published on: "+data.TweetDate;
+        }
+        function closeFullImg(){
+            fullImgBox.style.display  = "none";
+        }
+
+    </script>
+</body>
+</html>

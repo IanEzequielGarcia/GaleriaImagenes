@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.2",
+    "jquery": "^3.6.0",
+    "jquery-csv": "^1.0.21",
+    "node-fetch": "^3.2.0"
+  }
+}
